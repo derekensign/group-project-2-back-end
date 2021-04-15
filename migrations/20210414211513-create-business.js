@@ -19,6 +19,9 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
+      category: {
+        type: Sequelize.STRING
+      },
       phoneNumber: {
         type: Sequelize.STRING
       },
