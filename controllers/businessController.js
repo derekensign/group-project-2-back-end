@@ -10,7 +10,7 @@ businessController.allBusinesses = async (req,res) => {
         let businesses = await models.business.findAll()
     
         console.log(businesses)
-        res.json(businesses)
+        res.json({businesses})
 
     } catch (error) {
         console.log(error)
