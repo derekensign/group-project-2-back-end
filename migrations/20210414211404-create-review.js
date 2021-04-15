@@ -14,6 +14,9 @@ module.exports = {
       businessId: {
         type: Sequelize.INTEGER
       },
+      headline: {
+        type: Sequelize.TEXT
+      },
       comment: {
         type: Sequelize.TEXT
       },
