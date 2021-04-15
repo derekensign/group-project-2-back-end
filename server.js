@@ -14,3 +14,7 @@ app.listen(PORT, () => {
     console.log(`port running on ${PORT}`)
   routesReport.print()
 })
+
+const businessRoutes = require('./routes/businessRoutes')
+
+app.use('/business', businessRoutes)
