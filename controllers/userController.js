@@ -33,7 +33,6 @@ userController.createUser = async(req, res) => {
         });
     }
     
-
 };
 
 userController.loginUser = async(req, res) => {
@@ -103,7 +102,71 @@ userController.verifyUser = async(req, res) => {
     }
 };
 
-// Get reviews 
+userController.deleteUser = async(req, res) => {
+    try {
+        const { findUser } = req;
+
+
+        if (findUser !== null ) {
+            await findUser.destroy();
+
+            res.status(204).json();
+        }
+        else {
+            res.status(404).json({
+                message: 'User does not exist'
+            });
+        }
+
+    }
+    catch(error) {
+        res.status(400).error({
+            error: error.message
+        });
+    }
+}
+
+userController.updateUser = async(req, res) => {
+    try {
+        const { findUser } = req;
+        if (findUser !== null ) {
+            
+            const updateContents = {};
+
+            if (req.body.password) {
+                const salt = bcrypt.genSaltSync(10);
+
+                const hash = bcrypt.hashSync(req.body.password, salt);
+
+                updateContents.password = hash;
+            }
+
+            if (req.body.email) updateContents.email = req.body.email;
+
+            if (req.body.name) updateContents.name = req.body.name
+            
+            
+            const updatedUser = await findUser.update(updateContents);
+
+
+            res.status(204).json();
+        }
+        else {
+            res.status(404).json({
+                message: 'User does not exist'
+            });
+        }
+
+    }
+    catch(error) {
+        console.log(error);
+        res.status(400).json({
+            error: error.message
+        });
+    }
+};
+
+
 
 
 module.exports = userController;
