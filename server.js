@@ -3,6 +3,7 @@ const app = express()
 require('dotenv').config();
 
 const userRoutes = require('./routes/userRoutes');
+const businessRoutes = require('./routes/businessRoutes');
 const { userAuth } = require('./middlewears/userAuth');
 
 
@@ -15,6 +16,7 @@ app.use(userAuth)
 
 
 app.use('/user', userRoutes);
+app.use('/business', businessRoutes)
 
 
 const PORT = process.env.PORT || 3001
@@ -23,6 +25,3 @@ app.listen(PORT, () => {
   routesReport.print()
 })
 
-const businessRoutes = require('./routes/businessRoutes')
-
-app.use('/business', businessRoutes)

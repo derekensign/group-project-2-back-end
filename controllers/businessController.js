@@ -1,3 +1,7 @@
+const models = require('../models')
+const businessController = {}
+
+
 businessController.allBusinesses = async (req,res) => {
 
     console.log(req)
@@ -31,3 +35,5 @@ businessController.oneBusiness = async (req,res) => {
         res.json({error})
     }
 }
+
+module.exports = businessController
