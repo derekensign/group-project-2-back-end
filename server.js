@@ -1,12 +1,20 @@
 const express = require('express')
 const app = express()
-const models = require('./models')
+require('dotenv').config();
+
+const userRoutes = require('./routes/userRoutes');
+const { userAuth } = require('./middlewears/userAuth');
+
 
 const rowdy = require ('rowdy-logger')
 const routesReport = rowdy.begin(app)
 
 app.use(express.json())
 app.use(require('cors')())
+app.use(userAuth)
+
+
+app.use('/user', userRoutes);
 
 
 const PORT = process.env.PORT || 3001
