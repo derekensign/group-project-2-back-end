@@ -13,6 +13,7 @@ app.use(express.json())
 app.use(require('cors')())
 app.use(userAuth)
 
+
 app.use('/user', userRoutes);
 
 

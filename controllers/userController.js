@@ -1,6 +1,5 @@
 // We got user from models.user and delcared it variable known as user. (Destructuring)
 const { user } = require('./../models');
-
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -9,7 +8,9 @@ const userController = {};
 userController.createUser = async(req, res) => {
     try {
         const { name, email, password } = req.body; 
+
         const salt = bcrypt.genSaltSync(10);
+
         const hash = bcrypt.hashSync(password, salt);
         
         const newUser = await user.create({
@@ -46,14 +47,13 @@ userController.loginUser = async(req, res) => {
         });
 
         if ( findUser === null) {
-            res.status(404).json({
+            return res.status(404).json({
                 message: 'User does not exist'
             });
-
-            return; 
         }
 
         // Password Checking
+      
         if (bcrypt.compareSync(password, findUser.password)) {
            
             const userToken = jwt.sign({ userId: findUser.id}, process.env.SECRET);
@@ -66,8 +66,7 @@ userController.loginUser = async(req, res) => {
 
         else {
             res.status(401).json({
-                message: 'Password is not correct',
-                userToken   
+                message: 'Password is not correct',  
             });
         }
     }
@@ -82,6 +81,7 @@ userController.loginUser = async(req, res) => {
 
 userController.verifyUser = async(req, res) => {
     try {
+     
         const { findUser } = req;
         
         if (findUser !== null ) {
@@ -102,6 +102,8 @@ userController.verifyUser = async(req, res) => {
         });
     }
 };
+
+// Get reviews 
 
 
 module.exports = userController;
