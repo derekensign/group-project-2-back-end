@@ -2,14 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    {
-      userId: DataTypes.INTEGER,
-      address: DataTypes.STRING,
-      name: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
-      image: DataTypes.TEXT,
-      description: DataTypes.TEXT
-    }
+    await queryInterface.bulkInsert('businesses', [{
+      name: 'Nixta Taqueria',
   },
 
   down: async (queryInterface, Sequelize) => {

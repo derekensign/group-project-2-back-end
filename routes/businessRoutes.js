@@ -6,3 +6,5 @@ const axios = require('axios')
 
 businessRoutes.get('/', businessController.allBusinesses)
 businessRoutes.get('/:id', businessController.allBusinesses)
+
+module.exports = businessRoutes;
