@@ -7,7 +7,7 @@ const userController = {};
 
 userController.createUser = async(req, res) => {
     try {
-        const { name, email, password } = req.body; 
+        const { name, email, password, image } = req.body; 
 
         const salt = bcrypt.genSaltSync(10);
 
@@ -16,6 +16,7 @@ userController.createUser = async(req, res) => {
         const newUser = await user.create({
             name,
             email,
+            image,
             password: hash,
         });
 
