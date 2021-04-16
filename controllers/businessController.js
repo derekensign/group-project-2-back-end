@@ -91,4 +91,31 @@ businessController.createReview = async (req,res) => {
         res.json({error})
     }
 }
+
+businessController.getBusinessReviews = async (req,res) => {
+    try {
+        let business = await models.business.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [{
+                model: models.review,
+                include : {
+                    model: models.user
+                }
+            }]
+        })
+
+        // let reviews = await business.getReviews({include: 'user'})
+        let reviews = business.reviews
+
+        console.log(reviews)
+        res.json({reviews})
+
+    } catch (error) {
+        console.log(error)
+        res.json({error})
+    }
+}
+
 module.exports = businessController
