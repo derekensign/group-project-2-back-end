@@ -5,7 +5,6 @@ const businessController = {}
 
 businessController.allBusinesses = async (req,res) => {
 
-    console.log(req)
     try {
         let businesses = await models.business.findAll()
     
@@ -20,7 +19,6 @@ businessController.allBusinesses = async (req,res) => {
 
 businessController.oneBusiness = async (req,res) => {
 
-    console.log(req)
     try {
         let business = await models.business.findOne({
             where: {
@@ -29,9 +27,6 @@ businessController.oneBusiness = async (req,res) => {
         })
     
         let reviews = await business.getReviews()
-
-        console.log(reviews)
-        console.log(business)
 
         res.json({business, reviews})
 
@@ -59,7 +54,7 @@ businessController.createBusiness = async (req,res) => {
         await findUser.addBusiness(business)
 
         console.log(business)
-        res.json({businessId: business.id})
+        res.json({business})
 
     } catch (error) {
         console.log(error)
@@ -73,7 +68,8 @@ businessController.createReview = async (req,res) => {
 
     try {
         let review = await models.review.create({
-            comment: req.body.rating,
+            headline: req.body.headline,
+            comment: req.body.comment,
             rating: req.body.rating,
             image: req.body.image
         })
@@ -88,7 +84,7 @@ businessController.createReview = async (req,res) => {
         await business.addReview(review)
 
         console.log(business)
-        res.json({reviewId: review.id})
+        res.json({review})
 
     } catch (error) {
         console.log(error)
