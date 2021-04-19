@@ -23,10 +23,15 @@ businessController.oneBusiness = async (req,res) => {
         let business = await models.business.findOne({
             where: {
                 id: req.params.id
-            }
+            },
+            include : [{
+                model: models.user,
+                attributes: ['name']
+            }]
         })
-    
+        
         let reviews = await business.getReviews()
+        console.log(business);
 
         res.json({business, reviews})
 
@@ -101,7 +106,8 @@ businessController.getBusinessReviews = async (req,res) => {
             include: [{
                 model: models.review,
                 include : {
-                    model: models.user
+                    model: models.user,
+                    attributes: ['name']
                 }
             }]
         })
@@ -109,7 +115,7 @@ businessController.getBusinessReviews = async (req,res) => {
         // let reviews = await business.getReviews({include: 'user'})
         let reviews = business.reviews
 
-        console.log(reviews)
+
         res.json({reviews})
 
     } catch (error) {
