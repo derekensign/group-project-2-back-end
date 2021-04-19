@@ -26,7 +26,7 @@ businessController.oneBusiness = async (req,res) => {
             },
             include : [{
                 model: models.user,
-                attributes: ['name']
+                attributes: ['name','image']
             }]
         })
         
@@ -107,7 +107,7 @@ businessController.getBusinessReviews = async (req,res) => {
                 model: models.review,
                 include : {
                     model: models.user,
-                    attributes: ['name']
+                    attributes: ['name','image']
                 }
             }]
         })
